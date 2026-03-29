@@ -3,25 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>🏠 Amy — Leesburg Homes</title>
+<title>🏘️ Grove Street Estates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <style>
+  @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Share+Tech+Mono&display=swap");
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #1a1a2e;
+    font-family: 'Share Tech Mono', monospace;
+    background: #0a0a0a;
+    border-top: 3px solid #ff6b00;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 16px;
-    color: #fff;
+    color: #e0e0e0;
   }
   header {
     text-align: center;
     margin-bottom: 24px;
   }
-  header h1 { font-size: 1.6rem; font-weight: 700; }
-  header p  { color: #aaa; font-size: 0.85rem; margin-top: 4px; }
+  header h1 {
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ff6b00;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px rgba(255,107,0,0.5);
+  }
+  header p { color: #888; font-size: 0.82rem; margin-top: 6px; letter-spacing: 1px; }
 
   /* ── Deck ── */
   #deck {
@@ -35,22 +47,40 @@
   .card {
     position: absolute;
     inset: 0;
-    border-radius: 20px;
+    border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
     cursor: grab;
     user-select: none;
     transition: transform 0.1s;
-    background: #16213e;
+    background: #141414;
+    border: 1px solid #ff6b00;
+  }
+  .card:hover {
+    box-shadow: 0 0 24px rgba(255,107,0,0.4), 0 20px 60px rgba(0,0,0,0.8);
   }
   .card:active { cursor: grabbing; }
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
 
   .card-photo {
     width: 100%;
     height: 62%;
     object-fit: cover;
     display: block;
-    background: #16213e;
+    background: #141414;
   }
   .card-no-photo {
     width: 100%;
@@ -59,24 +89,28 @@
     align-items: center;
     justify-content: center;
     font-size: 5rem;
-    background: linear-gradient(135deg, #0f3460, #16213e);
+    background: linear-gradient(135deg, #1a1a1a, #141414);
   }
 
   .card-info {
     padding: 16px;
   }
   .card-price {
-    font-size: 1.7rem;
-    font-weight: 800;
-    color: #e94560;
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #ff6b00;
+    text-shadow: 0 0 8px rgba(255,107,0,0.4);
+    letter-spacing: 1px;
   }
   .card-address {
-    font-size: 0.85rem;
-    color: #ccc;
+    font-size: 0.82rem;
+    color: #bbb;
     margin: 4px 0 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: 0.5px;
   }
   .card-tags {
     display: flex;
@@ -84,33 +118,53 @@
     gap: 6px;
   }
   .tag {
-    background: rgba(255,255,255,0.1);
-    border-radius: 20px;
-    padding: 4px 10px;
-    font-size: 0.78rem;
-    color: #ddd;
+    background: rgba(255,107,0,0.08);
+    border: 1px solid rgba(255,107,0,0.3);
+    border-radius: 2px;
+    padding: 3px 8px;
+    font-size: 0.76rem;
+    color: #ccc;
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
-  .tag.green { background: rgba(0,200,100,0.2); color: #5fffb0; }
-  .tag.yellow { background: rgba(255,200,0,0.15); color: #ffe066; }
-  .tag.red { background: rgba(255,80,80,0.2); color: #ff8a8a; }
+  .tag.green { background: rgba(57,255,20,0.08); border-color: rgba(57,255,20,0.4); color: #39ff14; }
+  .tag.yellow { background: rgba(255,200,0,0.08); border-color: rgba(255,200,0,0.3); color: #ffd700; }
+  .tag.red { background: rgba(204,0,0,0.15); border-color: rgba(204,0,0,0.5); color: #ff4444; }
 
   /* Swipe indicators */
   .stamp {
     position: absolute;
     top: 30px;
     padding: 8px 18px;
-    border-radius: 8px;
-    font-size: 1.6rem;
-    font-weight: 900;
-    letter-spacing: 2px;
+    border-radius: 2px;
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.1s;
     border: 4px solid;
     transform: rotate(-15deg);
   }
-  .stamp.like  { right: 20px; color: #5fffb0; border-color: #5fffb0; transform: rotate(-15deg); }
-  .stamp.nope  { left: 20px;  color: #ff4d6d; border-color: #ff4d6d; transform: rotate(15deg); }
+  .stamp.like  {
+    right: 20px;
+    color: #39ff14;
+    border-color: #39ff14;
+    text-shadow: 0 0 12px #39ff14;
+    box-shadow: 0 0 16px rgba(57,255,20,0.3);
+    transform: rotate(-15deg);
+  }
+  .stamp.nope  {
+    left: 20px;
+    color: #cc0000;
+    border-color: #cc0000;
+    text-shadow: 0 0 12px #cc0000;
+    box-shadow: 0 0 16px rgba(204,0,0,0.3);
+    transform: rotate(15deg);
+  }
 
   /* ── Buttons ── */
   .buttons {
@@ -121,24 +175,46 @@
   }
   .btn {
     width: 64px; height: 64px;
-    border-radius: 50%;
-    border: none;
+    border-radius: 3px;
+    border: 2px solid transparent;
     font-size: 1.6rem;
     cursor: pointer;
     transition: transform 0.15s, box-shadow 0.15s;
     display: flex; align-items: center; justify-content: center;
   }
   .btn:hover { transform: scale(1.12); }
-  .btn.skip  { background: #ff4d6d; box-shadow: 0 6px 20px rgba(255,77,109,0.4); }
-  .btn.like  { background: #5fffb0; box-shadow: 0 6px 20px rgba(95,255,176,0.4); }
-  .btn.info  { background: #4a90e2; box-shadow: 0 6px 20px rgba(74,144,226,0.4); font-size: 1.2rem; }
+  .btn.skip  {
+    background: #1a0000;
+    border-color: #cc0000;
+    color: #cc0000;
+    box-shadow: 0 4px 16px rgba(204,0,0,0.3);
+  }
+  .btn.skip:hover { box-shadow: 0 0 20px rgba(204,0,0,0.6); }
+  .btn.like  {
+    background: #001a00;
+    border-color: #39ff14;
+    color: #39ff14;
+    box-shadow: 0 4px 16px rgba(57,255,20,0.3);
+  }
+  .btn.like:hover { box-shadow: 0 0 20px rgba(57,255,20,0.6); }
+  .btn.info  {
+    background: #1a0d00;
+    border-color: #ff6b00;
+    color: #ff6b00;
+    box-shadow: 0 4px 16px rgba(255,107,0,0.3);
+    font-size: 1.2rem;
+  }
+  .btn.info:hover { box-shadow: 0 0 20px rgba(255,107,0,0.6); }
 
   /* ── Counter ── */
   #counter {
-    font-size: 0.85rem;
-    color: #888;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.82rem;
+    color: #ff6b00;
     margin-bottom: 20px;
     text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
 
   /* ── Liked section ── */
@@ -148,14 +224,20 @@
     margin-top: 8px;
   }
   #liked-section h2 {
-    font-size: 1rem;
-    color: #5fffb0;
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #39ff14;
+    text-shadow: 0 0 10px rgba(57,255,20,0.5);
     margin-bottom: 12px;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
   }
   .liked-card {
-    background: #16213e;
-    border-radius: 14px;
+    background: #141414;
+    border: 1px solid #ff6b00;
+    border-radius: 3px;
     padding: 14px;
     margin-bottom: 10px;
     display: flex;
@@ -164,19 +246,27 @@
   }
   .liked-thumb {
     width: 60px; height: 60px;
-    border-radius: 10px;
+    border-radius: 2px;
     object-fit: cover;
     flex-shrink: 0;
-    background: #0f3460;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,107,0,0.3);
     display: flex; align-items: center; justify-content: center;
     font-size: 1.5rem;
   }
-  .liked-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+  .liked-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
   .liked-info { flex: 1; min-width: 0; }
-  .liked-price { font-weight: 700; font-size: 1rem; color: #e94560; }
-  .liked-addr  { font-size: 0.78rem; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .liked-meta  { font-size: 0.75rem; color: #888; margin-top: 2px; }
-  .liked-link  { color: #4a90e2; text-decoration: none; font-size: 0.8rem; }
+  .liked-price {
+    font-family: 'Oswald', Impact, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #ff6b00;
+    letter-spacing: 1px;
+  }
+  .liked-addr  { font-size: 0.76rem; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.5px; }
+  .liked-meta  { font-size: 0.73rem; color: #666; margin-top: 2px; }
+  .liked-link  { color: #39ff14; text-decoration: none; font-size: 0.78rem; letter-spacing: 0.5px; }
+  .liked-link:hover { text-shadow: 0 0 8px rgba(57,255,20,0.6); }
 
   /* Done state */
   #done {
@@ -184,23 +274,43 @@
     text-align: center;
     padding: 40px 20px;
   }
-  #done h2 { font-size: 1.4rem; margin-bottom: 8px; }
-  #done p  { color: #888; }
+  #done h2 {
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ff6b00;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 16px rgba(255,107,0,0.6);
+    margin-bottom: 8px;
+  }
+  #done p  { color: #666; font-size: 0.85rem; letter-spacing: 1px; }
   #restart-btn {
     margin-top: 16px;
-    padding: 10px 24px;
-    background: #e94560;
-    border: none; border-radius: 24px;
-    color: #fff; font-size: 1rem; font-weight: 600;
+    padding: 10px 28px;
+    background: transparent;
+    border: 2px solid #ff6b00;
+    border-radius: 2px;
+    color: #ff6b00;
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     cursor: pointer;
+    transition: box-shadow 0.15s, background 0.15s;
+  }
+  #restart-btn:hover {
+    background: rgba(255,107,0,0.1);
+    box-shadow: 0 0 16px rgba(255,107,0,0.5);
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🏠 Amy's Picks</h1>
-  <p>Leesburg VA · SFH Only · $500K–$1M · Swipe to explore</p>
+  <h1>🏘️ Grove Street Estates</h1>
+  <p>Leesburg, VA · No Buster Zone · Swipe to Claim Your Turf</p>
 </header>
 
 <div id="deck"></div>
@@ -213,18 +323,18 @@
 </div>
 
 <div id="done">
-  <h2>All done! 🎉</h2>
+  <h2>Mission Complete 💯</h2>
   <p>You've seen all available homes.</p>
-  <button id="restart-btn" onclick="restart()">Start Over</button>
+  <button id="restart-btn" onclick="restart()">Run It Again</button>
 </div>
 
 <div id="liked-section">
-  <h2 id="liked-header" style="display:none">❤️ Saved Homes</h2>
+  <h2 id="liked-header" style="display:none">🟢 YOUR CREW'S SPOTS</h2>
   <div id="liked-list"></div>
 </div>
 
 <script>
-const LISTINGS = [{"address":"1211 Musket Ct NE, Leesburg, VA, 20176","price":725000,"distance_miles":1.4,"beds":4,"baths":3,"sqft":3064,"year_built":1988,"days_on_mls":1,"hoa_fee":54,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/1211-Musket-Ct-NE_Leesburg_VA_20176_M60014-98732","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-27 14:01:35","price_per_sqft":237,"photo":"https://ap.rdcpix.com/24f70dc03dd583a901fe0d0f638457e5l-m3840923357od-w480_h360_x2.webp?w=1080&q=75"},{"address":"40246 Thomas Mill Rd, Leesburg, VA, 20175","price":750000,"distance_miles":2.5,"beds":3,"baths":3,"sqft":2621,"year_built":1978,"days_on_mls":1,"hoa_fee":0,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/40246-Thomas-Mill-Rd_Leesburg_VA_20175_M67567-98556","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-26 22:05:25","price_per_sqft":286,"photo":"https://ap.rdcpix.com/5bb18414ccd7bdf7f4025fa09c2b097dl-m2973800841od-w480_h360_x2.webp?w=1080&q=75"},{"address":"557 Rockbridge Dr SE, Leesburg, VA, 20175","price":525000,"distance_miles":0.9,"beds":4,"baths":2,"sqft":1549,"year_built":1984,"days_on_mls":2,"hoa_fee":32,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/557-Rockbridge-Dr-SE_Leesburg_VA_20175_M56940-40888","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-25 22:35:38","price_per_sqft":339,"photo":"https://ap.rdcpix.com/66b4556bf956a5636e4690ed67535530l-m3111725784od-w480_h360_x2.webp?w=1080&q=75"},{"address":"905 Tuscarora Dr SW, Leesburg, VA, 20175","price":749900,"distance_miles":1.2,"beds":4,"baths":3,"sqft":2084,"year_built":1965,"days_on_mls":3,"hoa_fee":0,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/905-Tuscarora-Dr-SW_Leesburg_VA_20175_M52255-03560","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-25 13:35:14","price_per_sqft":360,"photo":"https://ap.rdcpix.com/361f5329b2ea75ec882a6ae6dca4785dl-m1772396447od-w480_h360_x2.webp?w=1080&q=75"},{"address":"810 Wage Dr SW, Leesburg, VA, 20175","price":650000,"distance_miles":1.2,"beds":3,"baths":3,"sqft":1872,"year_built":1965,"days_on_mls":4,"hoa_fee":0,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/810-Wage-Dr-SW_Leesburg_VA_20175_M54237-72529","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-23 18:58:04","price_per_sqft":347,"photo":"https://ap.rdcpix.com/386a3cafa7422d97e715f07deb0bc90al-m300309847od-w480_h360_x2.webp?w=1080&q=75"},{"address":"429 Deerpath Ave SW, Leesburg, VA, 20175","price":799500,"distance_miles":1.3,"beds":4,"baths":3,"sqft":3263,"year_built":1988,"days_on_mls":9,"hoa_fee":84,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/429-Deerpath-Ave-SW_Leesburg_VA_20175_M62412-66919","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-18 19:36:04","price_per_sqft":245,"photo":"https://ap.rdcpix.com/3012bfa015cbd26fdc94a763bdbaae57l-m1206584361od-w480_h360_x2.webp?w=1080&q=75"},{"address":"828 Anthony Ct SE, Leesburg, VA, 20175","price":949000,"distance_miles":2.7,"beds":4,"baths":2,"sqft":2660,"year_built":2002,"days_on_mls":10,"hoa_fee":79,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/828-Anthony-Ct-SE_Leesburg_VA_20175_M52236-52675","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-17 20:50:50","price_per_sqft":357,"photo":"https://ap.rdcpix.com/59cb89da8870acec3327260cbe6b3dedl-m4093636931od-w480_h360_x2.webp?w=1080&q=75"},{"address":"608 Diskin Pl SW, Leesburg, VA, 20175","price":989000,"distance_miles":2.7,"beds":4,"baths":3,"sqft":3724,"year_built":1996,"days_on_mls":13,"hoa_fee":89,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/608-Diskin-Pl-SW_Leesburg_VA_20175_M67234-45537","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-15 06:24:09","price_per_sqft":266,"photo":"https://ap.rdcpix.com/f207216258715be1094819f90c0d1fd8l-m1550368135od-w480_h360_x2.webp?w=1080&q=75"},{"address":"406 Blue Ridge Ave NE, Leesburg, VA, 20176","price":849989,"distance_miles":0.6,"beds":4,"baths":3,"sqft":2584,"year_built":1984,"days_on_mls":25,"hoa_fee":null,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/406-Blue-Ridge-Ave-NE_Leesburg_VA_20176_M50450-99285","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-02 17:36:10","price_per_sqft":329,"photo":"https://ap.rdcpix.com/663fad6dd1cd6519555162cbf8984022l-m1723664141od-w480_h360_x2.webp?w=1080&q=75"}];
+const LISTINGS = [{"address":"1211 Musket Ct NE, Leesburg, VA, 20176","price":725000,"distance_miles":1.4,"beds":4,"baths":3,"sqft":3064,"year_built":1988,"days_on_mls":1,"hoa_fee":54,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/1211-Musket-Ct-NE_Leesburg_VA_20176_M60014-98732","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-27 14:01:35","price_per_sqft":237,"photo":"https://ap.rdcpix.com/24f70dc03dd583a901fe0d0f638457e5l-m3840923357od-w480_h360_x2.webp?w=1080&q=75"},{"address":"40246 Thomas Mill Rd, Leesburg, VA, 20175","price":750000,"distance_miles":2.5,"beds":3,"baths":3,"sqft":2621,"year_built":1978,"days_on_mls":1,"hoa_fee":0,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/40246-Thomas-Mill-Rd_Leesburg_VA_20175_M67567-98556","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-26 22:05:25","price_per_sqft":286,"photo":"https://ap.rdcpix.com/5bb18414ccd7bdf7f4025fa09c2b097dl-m2973800841od-w480_h360_x2.webp?w=1080&q=75"},{"address":"557 Rockbridge Dr SE, Leesburg, VA, 20175","price":525000,"distance_miles":0.9,"beds":4,"baths":2,"sqft":1549,"year_built":1984,"days_on_mls":2,"hoa_fee":32,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/557-Rockbridge-Dr-SE_Leesburg_VA_20175_M56940-40888","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-25 22:35:38","price_per_sqft":339,"photo":"https://ap.rdcpix.com/66b4556bf956a5636e4690ed67535530l-m3111725784od-w480_h360_x2.webp?w=1080&q=75"},{"address":"905 Tuscarora Dr SW, Leesburg, VA, 20175","price":749900,"distance_miles":1.2,"beds":4,"baths":3,"sqft":2084,"year_built":1965,"days_on_mls":3,"hoa_fee":0,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/905-Tuscarora-Dr-SW_Leesburg_VA_20175_M52255-03560","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-25 13:35:14","price_per_sqft":360,"photo":"https://ap.rdcpix.com/361f5329b2ea75ec882a6ae6dca4785dl-m1772396447od-w480_h360_x2.webp?w=1080&q=75"},{"address":"810 Wage Dr SW, Leesburg, VA, 20175","price":650000,"distance_miles":1.2,"beds":3,"baths":3,"sqft":1872,"year_built":1965,"days_on_mls":4,"hoa_fee":0,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/810-Wage-Dr-SW_Leesburg_VA_20175_M54237-72529","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-23 18:58:04","price_per_sqft":347,"photo":"https://ap.rdcpix.com/386a3cafa7422d97e715f07deb0bc90al-m300309847od-w480_h360_x2.webp?w=1080&q=75"},{"address":"429 Deerpath Ave SW, Leesburg, VA, 20175","price":799500,"distance_miles":1.3,"beds":4,"baths":3,"sqft":3263,"year_built":1988,"days_on_mls":9,"hoa_fee":84,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/429-Deerpath-Ave-SW_Leesburg_VA_20175_M62412-66919","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-18 19:36:04","price_per_sqft":245,"photo":"https://ap.rdcpix.com/3012bfa015cbd26fdc94a763bdbaae57l-m1206584361od-w480_h360_x2.webp?w=1080&q=75"},{"address":"828 Anthony Ct SE, Leesburg, VA, 20175","price":949000,"distance_miles":2.7,"beds":4,"baths":2,"sqft":2660,"year_built":2002,"days_on_mls":10,"hoa_fee":79,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/828-Anthony-Ct-SE_Leesburg_VA_20175_M52236-52675","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-17 20:50:50","price_per_sqft":357,"photo":"https://ap.rdcpix.com/59cb89da8870acec3327260cbe6b3dedl-m4093636931od-w480_h360_x2.webp?w=1080&q=75"},{"address":"608 Diskin Pl SW, Leesburg, VA, 20175","price":989000,"distance_miles":2.7,"beds":4,"baths":3,"sqft":3724,"year_built":1996,"days_on_mls":13,"hoa_fee":89,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/608-Diskin-Pl-SW_Leesburg_VA_20175_M67234-45537","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-15 06:24:09","price_per_sqft":266,"photo":"https://ap.rdcpix.com/f207216258715be1094819f90c0d1fd8l-m1550368135od-w480_h360_x2.webp?w=1080&q=75"},{"address":"406 Blue Ridge Ave NE, Leesburg, VA, 20176","price":849989,"distance_miles":0.6,"beds":4,"baths":3,"sqft":2584,"year_built":1984,"days_on_mls":26,"hoa_fee":null,"new_construction":false,"url":"https://www.realtor.com/realestateandhomes-detail/406-Blue-Ridge-Ave-NE_Leesburg_VA_20176_M50450-99285","source":"realtor.com","status":"FOR_SALE","list_date":"2026-03-02 17:36:10","price_per_sqft":329,"photo":"https://ap.rdcpix.com/663fad6dd1cd6519555162cbf8984022l-m1723664141od-w480_h360_x2.webp?w=1080&q=75"}];
 const STORAGE_KEY = 'amy_liked_v2';
 
 let queue = [];

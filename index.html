@@ -127,7 +127,7 @@
     align-items: center;
     justify-content: center;
     font-size: 4rem;
-    color: var(--gold-soft);
+    color: var(--gold);
     background: linear-gradient(135deg, var(--surface-2), var(--surface));
   }
 
@@ -528,7 +528,7 @@ function makeCard(listing, zIndex) {
   div.dataset.url = listing.url || '';
 
   const photo = listing.photo
-    ? `<img class="card-photo" src="${listing.photo}" alt="home" onerror="this.parentNode.innerHTML='<div class=card-no-photo>🏠</div>'">`
+    ? `<img class="card-photo" src="${listing.photo}" alt="home" referrerpolicy="no-referrer" loading="eager" onerror="this.outerHTML='<div class=&quot;card-no-photo&quot;>🏠</div>'">`
     : '<div class="card-no-photo">🏠</div>';
 
   const beds  = listing.beds  ? `🛏 ${listing.beds}bd` : '';
